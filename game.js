@@ -1,14 +1,20 @@
 (function(root){
   var AsteroidsGame = root.AsteroidsGame = (root.AsteroidsGame || {});
 
-  var Game = AsteroidsGame.Game = function(ctx){
+  var Game = AsteroidsGame.Game = function(ctx, level){
     this.ctx = ctx;
     this.dimX = 800;
     this.dimY = 600;
-    this.level = 6;
+    if (level === undefined){
+      this.level = 4; 
+    }
+    else{
+      this.level = level;
+    }
     this.ship = new Ship.ship([this.dimX/2,this.dimY/2], [0,0]);
     this.asteroids = this.addAsteroids(this.level, this.dimX, this.dimY);
     this.bullets = [];
+    this.won = false;
     var shipA = this.ship;
     var that = this;
 
@@ -103,12 +109,6 @@
       for(var i = 0; i < this.bullets.length; i++) {
         for(var j = 0; j < this.asteroids.length; j++) {
           if (this.bullets[i].isCollidedWith(this.asteroids[j]) && this.asteroids[j]){
-            //   this.split(asteroids[j]);
-            // var new_directions = this.orthogonal_vectors([this.bullets[i].vel[0]/this.ship.GUN_SPEED, this.bullets[i].vel[1]/this.ship.GUN_SPEED]);
-            // var new_directions = [[-0.02, -0.03],[0.02, 0.02]]
-            // var new_asteroids = [new Asteroids.Asteroid(this.asteroids[j].pos, new_directions[0]),
-            // new Asteroids.Asteroid(this.asteroids[j].pos, new_directions[1])]
-            // this.asteroids = this.asteroids.concat(new_asteroids);
             this.bullets.remove(i);
             this.asteroids.remove(j);
           }
@@ -118,19 +118,56 @@
 
     Game.prototype.orthogonal_vectors = function(vect) {
        return [[-vect[1], vect[0]], [vect[1], vect[0]]]
+    }
+
+    Game.prototype.checkAsteroids = function(){
+      var that = this;
+      if (this.asteroids.length === 0){
+        game.won = true;
       }
+    }
 
     Game.prototype.step = function(){
-      this.move();
-      this.draw();
-      this.checkCollisions();
-      this.hitAsteroids();
-      this.remove_out_of_bounds();
+      if(game.won === false){
+        this.move();
+        this.draw();
+        this.checkCollisions();
+        this.hitAsteroids();
+        this.remove_out_of_bounds();
+        this.checkAsteroids();
+      }
+      if(game.won === true){
+        game.stop();
+        this.restart();
+      }
     }
 
     Game.prototype.start = function(){
       var game = this;
       this.timer_id = window.setInterval(function() {game.step()}, 100)
+    }
+
+    Game.prototype.restart = function(increment){
+       this.setLevel();
+    }
+
+    Game.prototype.setLevel = function(){
+      alert('proceeding to the next level...')
+      var level = this.level;
+      if(level < 11){
+        level = 12; 
+      }
+      if(level < 18 && level >= 12){
+        level += 3;
+      }
+      if (level === 18){
+        level += 5;
+      }
+      if(level >= 24){
+        level += 8;
+      }
+      game = new AsteroidsGame.Game(ctx, level);
+      game.start();
     }
 
     Game.prototype.stop = function(){

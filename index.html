@@ -10,6 +10,7 @@
   <script>
   var canvas = document.createElement("canvas");
   canvas.style.border = "black 1px solid";
+  canvas.style.backgroundImage = "./background.png";
   canvas.setAttribute("width", 800);
   canvas.setAttribute("height", 600);
 
@@ -20,9 +21,10 @@
 
   var game = new AsteroidsGame.Game(ctx);
   game.start();
-
+  
   </script>
 
 
 </body>
+
 </html>
