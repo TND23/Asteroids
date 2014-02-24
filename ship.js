@@ -7,16 +7,16 @@
     child.prototype = new Surrogate();
   }
 
-  var Ship = Ship.ship = function(pos, vel) {
+  var Ship = Ship.ship = function(pos, vel, rotation_vel) {
     var COLOR = "#2233AA";
     var RADIUS = 20;
-    this.ENGINE = 0.01;
+    this.ENGINE = 0.04;
     this.GUN_SPEED = 0.12;
     this.MAX_SPEED = .1;
-    MovingObjects.MovingObject.call(this, pos, vel, RADIUS, COLOR);
+    MovingShips.MovingShip.call(this, pos, vel, rotation_vel, COLOR);
   };
 
-  inherits(Ship, root.MovingObjects.MovingObject);
+  inherits(Ship, root.MovingShips.MovingShip);
 
   Ship.prototype.power = function(impulse) {
     if (Math.abs(this.vel[0]) < this.MAX_SPEED || Math.abs(this.vel[0] + impulse[0]) < this.MAX_SPEED){
@@ -26,13 +26,14 @@
     if (Math.abs(this.vel[1]) < this.MAX_SPEED || Math.abs(this.vel[1] + impulse[1]) < this.MAX_SPEED){
       this.vel[1] += impulse[1];  
     }
+    console.log(this.vel);
   }
 
   var Bullet = Ship.Bullet = function(pos, vel){
     this.pos = pos;
     this.vel = vel;
     var COLOR = "#AA3388";
-    var RADIUS = 2;
+    var RADIUS = 5;
     MovingObjects.MovingObject.call(this, pos, vel, RADIUS, COLOR);
   }
 

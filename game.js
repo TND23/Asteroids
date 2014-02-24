@@ -11,7 +11,7 @@
     else{
       this.level = level;
     }
-    this.ship = new Ship.ship([this.dimX/2,this.dimY/2], [0,0]);
+    this.ship = new Ship.ship([this.dimX/2,this.dimY/2], [0,0], 0);
     this.asteroids = this.addAsteroids(this.level, this.dimX, this.dimY);
     this.bullets = [];
     this.won = false;
@@ -19,8 +19,8 @@
     var that = this;
 
     key('w', function() { shipA.power([0,-0.01]) });
-    key('a', function() { shipA.power([-0.01,0]) });
     key('s', function() { shipA.power([0,0.01]) });
+    key('a', function() { shipA.power([-0.01,0]) });
     key('d', function() { shipA.power([0.01,0]) });
 
     key('space', function() { that.fireBullet() });
