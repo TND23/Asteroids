@@ -9,6 +9,7 @@
 }
 
 MovingObject.prototype.move = function(delta){
+
   this.pos[0] += this.vel[0] * delta;
   this.pos[1] += this.vel[1] * delta;
 }

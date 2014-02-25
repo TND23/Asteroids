@@ -26,7 +26,6 @@
     if (Math.abs(this.vel[1]) < this.MAX_SPEED || Math.abs(this.vel[1] + impulse[1]) < this.MAX_SPEED){
       this.vel[1] += impulse[1];  
     }
-    console.log(this.vel);
   }
 
   var Bullet = Ship.Bullet = function(pos, vel){

@@ -6,13 +6,13 @@
     this.dimX = 800;
     this.dimY = 600;
     if (level === undefined){
-      this.level = 4; 
+      this.level = 1; 
     }
     else{
       this.level = level;
     }
     this.ship = new Ship.ship([this.dimX/2,this.dimY/2], [0,0], 0);
-    this.asteroids = this.addAsteroids(this.level, this.dimX, this.dimY);
+    this.asteroids = this.populateAsteroids(this.level, this.dimX, this.dimY);
     this.bullets = [];
     this.won = false;
     var shipA = this.ship;
@@ -20,13 +20,14 @@
 
     key('w', function() { shipA.power([0,-0.01]) });
     key('s', function() { shipA.power([0,0.01]) });
-    key('a', function() { shipA.power([-0.01,0]) });
-    key('d', function() { shipA.power([0.01,0]) });
+    // key('a', function() { shipA.power([-0.01,0]) });
+    // key('d', function() { shipA.power([0.01,0]) });
+      console.log(this.asteroids);
 
     key('space', function() { that.fireBullet() });
     }
 
-    Game.prototype.addAsteroids = function(n, dimX, dimY){
+    Game.prototype.populateAsteroids = function(n, dimX, dimY){
       var asteroids = [];
       for (var i = 0; i < n; i++){
         var candidateAsteroid = Asteroids.randomAsteroid(dimX, dimY);
@@ -38,6 +39,15 @@
         }
       }
       return asteroids;
+    }
+
+    Game.prototype.addAsteroids = function(new_asteroids){
+      game.new_asties = new_asteroids;
+      var list_of_asteroids = game.asteroids;
+      for (var i = 0; i < new_asteroids.length; i++){
+        list_of_asteroids.push(game.new_asties[i]);  
+      }
+      return list_of_asteroids;
     }
 
     Game.prototype.draw = function(){
@@ -106,11 +116,20 @@
     }
 
     Game.prototype.hitAsteroids = function() {
+      var that = this;
       for(var i = 0; i < this.bullets.length; i++) {
         for(var j = 0; j < this.asteroids.length; j++) {
           if (this.bullets[i].isCollidedWith(this.asteroids[j]) && this.asteroids[j]){
             this.bullets.remove(i);
-            this.asteroids.remove(j);
+            
+            if (this.asteroids[j].radius > 14){
+              var new_asteroids = Asteroids.explode(that.asteroids[j]);
+              this.asteroids.remove(j);
+              that.addAsteroids(new_asteroids);
+            }
+            else{
+              this.asteroids.remove(j);
+            }
           }
         }
       }
