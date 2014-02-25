@@ -34,7 +34,7 @@
   var explode = Asteroids.explode = function(asteroid){
     if (asteroid.radius > 14){
       var asteroids = [];
-      var asteroid_child_a = new Asteroid(asteroid.pos, [asteroid.vel[0]*1.3,asteroid.vel[1]*1.3]);
+      var asteroid_child_a = new Asteroid([asteroid.pos[0]+10,asteroid.pos[1]-10], [asteroid.vel[0]*1.3,asteroid.vel[1]*1.3]);
       asteroid_child_a.radius = asteroid.radius / 2;
       var asteroid_child_b = new Asteroid(asteroid.pos, [asteroid.vel[0]*-1.6,asteroid.vel[1]*-1.6]);
       asteroid_child_b.radius = asteroid.radius / 2;
