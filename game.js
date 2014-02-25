@@ -16,12 +16,13 @@
     this.bullets = [];
     this.won = false;
     var shipA = this.ship;
+    console.log(shipA);
     var that = this;
 
     key('w', function() { shipA.power([0,-0.01]) });
     key('s', function() { shipA.power([0,0.01]) });
-    // key('a', function() { shipA.power([-0.01,0]) });
-    // key('d', function() { shipA.power([0.01,0]) });
+    key('a', function() { shipA.rotate(-.1) });
+    key('d', function() { shipA.rotate(.1) });
       console.log(this.asteroids);
 
     key('space', function() { that.fireBullet() });
@@ -146,10 +147,17 @@
       }
     }
 
+    Game.prototype.rotateShip = function(){
+      this.ship.angle += this.ship.rotation_vel;
+      this.ship.angle %= (2*(Math.PI));
+    }
+
+
     Game.prototype.step = function(){
       if(game.won === false){
         this.move();
         this.draw();
+        this.rotateShip();
         this.checkCollisions();
         this.hitAsteroids();
         this.remove_out_of_bounds();

@@ -13,6 +13,8 @@
     this.ENGINE = 0.04;
     this.GUN_SPEED = 0.12;
     this.MAX_SPEED = .1;
+    this.angle = 0;
+    this.rotation_vel = rotation_vel;
     MovingShips.MovingShip.call(this, pos, vel, rotation_vel, COLOR);
   };
 
@@ -28,6 +30,13 @@
     }
   }
 
+  Ship.prototype.rotate = function(rotation_increment){
+    this.rotation_vel += rotation_increment;
+    this.angle += this.rotation_vel;
+    this.angle = this.angle % (2 * Math.PI);
+    return this.angle;
+  }
+
   var Bullet = Ship.Bullet = function(pos, vel){
     this.pos = pos;
     this.vel = vel;
@@ -40,7 +49,12 @@
 
   Ship.prototype.direction = function() {
     var speed = Math.sqrt(Math.pow(this.vel[0],2) + Math.pow(this.vel[1],2));
-    return [this.vel[0]/speed, this.vel[1]/speed];
+    if (speed == 0){
+      return [0,-1];
+    }
+    else{
+      return [this.vel[0]/speed, this.vel[1]/speed];  
+    }
   }
 
   Ship.prototype.fireBullet = function(){
