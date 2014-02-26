@@ -26,6 +26,8 @@ MovingObject.prototype.draw = function(ctx){
     2 * Math.PI,
     false
   );
+        ctx.stroke();
+
   ctx.fill();
 }
 

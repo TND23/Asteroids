@@ -31,9 +31,28 @@
   }
 
   Ship.prototype.rotate = function(rotation_increment){
-    this.rotation_vel += rotation_increment;
+    var context = game.ctx;
+    
+    if(this.rotation_vel >0 && this.rotation_vel >= .2){
+      this.rotation_vel = .2;
+    }
+    else if(this.rotation_vel < 0 && this.rotation_vel <= -.2){
+      this.rotation_vel = -.2
+    }
+    else{
+      this.rotation_vel += rotation_increment;     
+    }
+    context.translate(context.canvas.width/2,context.canvas.height/2);
+    context.rotate(this.rotation_vel);
+    //game.stop();
+    context.translate(context.canvas.width*-1/2,context.canvas.height*-1/2);
+    this.draw(context);
+    context.restore();
+
+   // game.ctx.translate(game.ct)
     this.angle += this.rotation_vel;
     this.angle = this.angle % (2 * Math.PI);
+    // game.ctx.rotate(rotation_increment);
     return this.angle;
   }
 

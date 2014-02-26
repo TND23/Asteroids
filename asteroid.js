@@ -11,8 +11,6 @@
     var COLOR = "#AAAAAA";
     var minSize = .5;
     // asteroids are randomly between .5 and 1 of RADIUS size
-    // the probability of two asteroids having the same size is so small that they
-    // can be identified by this size with good safety
     var RADIUS = 100 * ((minSize * Math.random()) + minSize);
     this.radius = RADIUS;
     MovingObjects.MovingObject.call(this, pos, vel, RADIUS, COLOR);
