@@ -10,7 +10,6 @@
   var Asteroid = Asteroids.Asteroid = function(pos, vel) {
     var COLOR = "#AAAAAA";
     var minSize = .5;
-    // asteroids are randomly between .5 and 1 of RADIUS size
     var RADIUS = 100 * ((minSize * Math.random()) + minSize);
     this.radius = RADIUS;
     MovingObjects.MovingObject.call(this, pos, vel, RADIUS, COLOR);

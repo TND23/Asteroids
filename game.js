@@ -16,17 +16,17 @@
     this.bullets = [];
     this.won = false;
     var shipA = this.ship;
-    console.log(shipA);
     var that = this;
-
-    key('w', function() { shipA.power([0,-0.01]) });
+    var x_direction = Math.sin(shipA.angle);
+    var y_direction = Math.cos(shipA.angle);
+   
+    key('w', function() { shipA.power([x_direction*.01,y_direction*-.01]) });
     key('s', function() { shipA.power([0,0.01]) });
-    key('a', function() { shipA.rotate(-.1) });
-    key('d', function() { shipA.rotate(.1) });
-      console.log(this.asteroids);
+    key('a', function() { shipA.turn((Math.PI/8) * -.1) });
+    key('d', function() { shipA.turn((Math.PI/8) *.1)});
 
     key('space', function() { that.fireBullet() });
-    }
+  }
 
     Game.prototype.populateAsteroids = function(n, dimX, dimY){
       var asteroids = [];
@@ -51,19 +51,19 @@
       return list_of_asteroids;
     }
 
-    Game.prototype.draw = function(){
+    Game.prototype.drawAll = function(){
 
       this.ctx.clearRect(0, 0, this.dimX, this.dimY);
-   
-
-      for(var i = 0; i < this.asteroids.length; i++){
+      this.ctx.save();
+      this.ship.rotate(this.ship.rotation_vel);
+      this.ship.draw(this.ctx);
+      this.ctx.restore();
+        for(var i = 0; i < this.asteroids.length; i++){
         this.asteroids[i].draw(this.ctx);
       }
-      this.ship.draw(this.ctx);
       for(var i = 0; i < this.bullets.length; i++){
         this.bullets[i].draw(this.ctx);
       }
-
     }
 
     Game.prototype.move = function(){
@@ -74,7 +74,6 @@
       for(var i = 0; i < this.bullets.length; i++){
         this.bullets[i].move(300);
       }
-
     }
 
     // thanks to http://stackoverflow.com/a/9815010
@@ -84,7 +83,6 @@
       return this.push.apply(this, rest);
     };
 
-    //check to see if the asteroid is in the canvas
     Game.prototype.remove_out_of_bounds = function(){
       for(var i = 0; i < this.bullets.length; i++){
         if(this.bullets[i].pos[0] >= this.dimX + 20
@@ -147,17 +145,11 @@
       }
     }
 
-    Game.prototype.rotateShip = function(){
-      this.ship.angle += this.ship.rotation_vel;
-      this.ship.angle %= (2*(Math.PI));
-    }
-
-
     Game.prototype.step = function(){
       if(game.won === false){
         this.move();
-        this.draw();
-        this.rotateShip();
+        this.drawAll();
+        this.ship.turn(0);
         this.checkCollisions();
         this.hitAsteroids();
         this.remove_out_of_bounds();
@@ -200,6 +192,4 @@
     Game.prototype.stop = function(){
       window.clearInterval(this.timer_id);
     }
-
-
 })(this);

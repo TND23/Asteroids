@@ -13,6 +13,7 @@
     this.ENGINE = 0.04;
     this.GUN_SPEED = 0.12;
     this.MAX_SPEED = .1;
+    this.rotation_increment = 0;
     this.angle = 0;
     this.rotation_vel = rotation_vel;
     MovingShips.MovingShip.call(this, pos, vel, rotation_vel, COLOR);
@@ -30,22 +31,22 @@
     }
   }
 
-  Ship.prototype.rotate = function(rotation_increment){
-      var context = game.ctx;
-    
-    if(this.rotation_vel >= .2 && rotation_increment > 0){
-      this.rotation_vel = .2;
+  Ship.prototype.rotate = function(rotation_vel){
+    this.angle += rotation_vel;
+  }
+
+  Ship.prototype.turn = function(rotation_increment){
+    this.rotation_increment+=rotation_increment;
+    if(this.rotation_vel >= Math.PI){
+      this.rotation_vel = 0;
     }
-    else if(this.rotation_vel <= -.2 && rotation_increment < 0){
-      this.rotation_vel = -.2;
+    else if(this.rotation_vel <= -Math.PI){
+      this.rotation_vel = 0;
     }
     else{
       this.rotation_vel += rotation_increment;     
     }
-    context.translate(this.pos[0],this.pos[1]);
-    context.rotate(this.rotation_vel);
-    context.translate(this.pos[0]*-1,this.pos[1]*-1);
-    this.draw(context);
+    this.angle += rotation_increment;
   }
 
   var Bullet = Ship.Bullet = function(pos, vel){

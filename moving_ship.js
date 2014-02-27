@@ -11,18 +11,19 @@
 
 	MovingShip.prototype.draw = function(ctx){
   		ctx.fillStyle = this.color;
-  		ctx.beginPath();
+      ctx.translate(this.pos[0],this.pos[1]);
+      ctx.rotate(this.rotation_vel*2);
+      ctx.translate(this.pos[0]*-1,this.pos[1]*-1);
+  		
+      ctx.beginPath(); 
    		ctx.lineTo(this.pos[0] + 20, this.pos[1] + 20);
    		ctx.lineTo(this.pos[0] +10, this.pos[1] +20);
    		ctx.lineTo(this.pos[0] +0, this.pos[1] +20);
    		ctx.lineTo(this.pos[0] +10, this.pos[1] +0);
-   		ctx.stroke();
+   		ctx.stroke();      
    		ctx.closePath();
   		ctx.fill();	
-      ctx.restore();
 	}
-
-
 
 	MovingShip.prototype.move = function(delta){
   	 this.pos[0] += this.vel[0] * delta;
@@ -38,3 +39,4 @@
 	}
 
 })(this);
+
