@@ -31,22 +31,26 @@
     }
   }
 
-  Ship.prototype.rotate = function(rotation_vel){
-    this.angle += rotation_vel;
-  }
+  // Ship.prototype.rotate = function(rotation_vel){
+  //   this.angle += rotation_vel;
+  //   this.angle %= (2*Math.PI)
+  // }
 
   Ship.prototype.turn = function(rotation_increment){
+
     this.rotation_increment+=rotation_increment;
-    if(this.rotation_vel >= Math.PI){
+    this.angle += rotation_increment;
+    this.angle %= (2*Math.PI)
+    if(this.rotation_vel >= 2*Math.PI){
       this.rotation_vel = 0;
     }
-    else if(this.rotation_vel <= -Math.PI){
+    else if(this.rotation_vel <= -2*Math.PI){
       this.rotation_vel = 0;
     }
     else{
       this.rotation_vel += rotation_increment;     
     }
-    this.angle += rotation_increment;
+   // this.angle += rotation_increment;
   }
 
   var Bullet = Ship.Bullet = function(pos, vel){
@@ -60,13 +64,14 @@
   inherits(Bullet, root.MovingObjects.MovingObject);
 
   Ship.prototype.direction = function() {
-    var speed = Math.sqrt(Math.pow(this.vel[0],2) + Math.pow(this.vel[1],2));
-    if (speed == 0){
-      return [0,-1];
-    }
-    else{
-      return [this.vel[0]/speed, this.vel[1]/speed];  
-    }
+    return ([Math.sin(this.angle), Math.cos(this.angle)*-2]);
+    // var speed = Math.sqrt(Math.pow(this.vel[0],2) + Math.pow(this.vel[1],2));
+    // if (speed == 0){
+    //   return [0,-1];
+    // }
+    // else{
+    //   return [this.vel[0]/speed + Math.cos(this.angle), this.vel[1]/speed + Math.sin(this.angle)];  
+    // }
   }
 
   Ship.prototype.fireBullet = function(){

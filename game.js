@@ -20,10 +20,11 @@
     var x_direction = Math.sin(shipA.angle);
     var y_direction = Math.cos(shipA.angle);
    
-    key('w', function() { shipA.power([x_direction*.01,y_direction*-.01]) });
-    key('s', function() { shipA.power([0,0.01]) });
-    key('a', function() { shipA.turn((Math.PI/8) * -.1) });
-    key('d', function() { shipA.turn((Math.PI/8) *.1)});
+    key('w', function() { shipA.power([shipA.angle*.1,y_direction*-.1]) });
+    key('s', function() { shipA.power([shipA.angle*-.1,y_direction*.1]) });
+    key('a', function() { shipA.turn((Math.PI/6) * -.1) });
+    key('d', function() { shipA.turn((Math.PI/6) *.1)});
+    // each rotation is 6 degrees
 
     key('space', function() { that.fireBullet() });
   }
@@ -55,7 +56,7 @@
 
       this.ctx.clearRect(0, 0, this.dimX, this.dimY);
       this.ctx.save();
-      this.ship.rotate(this.ship.rotation_vel);
+      //this.ship.rotate(this.ship.rotation_vel);
       this.ship.draw(this.ctx);
       this.ctx.restore();
         for(var i = 0; i < this.asteroids.length; i++){

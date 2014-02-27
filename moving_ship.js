@@ -12,7 +12,7 @@
 	MovingShip.prototype.draw = function(ctx){
   		ctx.fillStyle = this.color;
       ctx.translate(this.pos[0],this.pos[1]);
-      ctx.rotate(this.rotation_vel*2);
+      ctx.rotate(this.rotation_vel);
       ctx.translate(this.pos[0]*-1,this.pos[1]*-1);
   		
       ctx.beginPath(); 
