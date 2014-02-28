@@ -18,7 +18,7 @@
     var shipA = this.ship;
     var that = this;
    
-    key('w', function() { shipA.power([Math.sin(shipA.angle)*.1,Math.cos(shipA.angle)*-.1]) });
+    key('w', function() { shipA.power([Math.cos(shipA.angle)*-.1,Math.sin(shipA.angle)*-.1]) });
     key('s', function() { shipA.slowDown() });
     key('a', function() { shipA.turn((Math.PI/6) * -.1) });
     key('d', function() { shipA.turn((Math.PI/6) *.1)});

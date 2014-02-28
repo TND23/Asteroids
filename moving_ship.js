@@ -5,27 +5,28 @@
   		this.pos = pos;
   		this.vel = vel;
       this.rotation_vel = rotation_vel;
-      this.setCollisionSpots();
+
+      // this.setCollisionSpots();
   		this.color = color;
-      this.angle = 0;
 	}
 
-  MovingShip.prototype.setCollisionSpots = function(){
-    this.collision_spots = [[this.pos[0] + 20, this.pos[1] + 20], 
-                        [this.pos[0] +10, this.pos[1] +20],
-                        [this.pos[0] +0, this.pos[1] +20], 
-                        [this.pos[0] +10, this.pos[1] +0]];
-    for (var i =0; i < this.collision_spots.length; i++){
-      this.collision_spots[i].radius = 0;
-    }
-  }
+  // MovingShip.prototype.setCollisionSpots = function(){
+  //   this.collision_spots = [[this.pos[0] + 10, this.pos[1] + 20], 
+  //                       [this.pos[0] -10, this.pos[1] +20],
+  //                       [this.pos[0], this.pos[1]], 
+  //                       [this.pos[0], this.pos[1] +20]];
+  //                       // bottom right, bottom left, top, bottom middle
+  //   for (var i =0; i < this.collision_spots.length; i++){
+  //     this.collision_spots[i].radius = 0;
+  //   }
+  // }
 
 	MovingShip.prototype.draw = function(ctx){
   		ctx.fillStyle = this.color;
       ctx.translate(this.pos[0],this.pos[1]);
      // console.log(this.pos);
       ctx.rotate(this.rotation_vel);
-      this.updateCollisonSpots();
+    //  this.updateCollisonSpots();
 
       ctx.translate(this.pos[0]*-1,this.pos[1]*-1);
       ctx.beginPath(); 
@@ -44,23 +45,26 @@
       
 	}
 
-  MovingShip.prototype.updateCollisonSpots = function(){
-     this.collision_spots = [[this.pos[0] + 20, this.pos[1] + 20], 
-                        [this.pos[0] +10, this.pos[1] +20],
-                        [this.pos[0] +0, this.pos[1] +20], 
-                        [this.pos[0] +10, this.pos[1] +0]];
-  }
+  // MovingShip.prototype.updateCollisonSpots = function(){
+  //    this.collision_spots = [[this.pos[0] + 10, this.pos[1] + 20], 
+  //                       [this.pos[0] -10, this.pos[1] +20],
+  //                       [this.pos[0], this.pos[1]], 
+  //                       [this.pos[0], this.pos[1] +20]];
+  // }
 
 	MovingShip.prototype.move = function(delta){
   	 this.pos[0] += this.vel[0] * delta;
  		 this.pos[1] += this.vel[1] * delta;
-     this.updateCollisonSpots();
 
 	}
 
 	MovingShip.prototype.isCollidedWith = function(otherObject){
 
-      if (Math.sqrt(Math.pow(this.collision_spots[0][0] - otherObject.pos[0],2) + Math.pow(this.collision_spots[0][1] - otherObject.pos[1],2)) < otherObject.radius){
+      if (Math.sqrt(Math.pow(this.left_collision_spot[0] - otherObject.pos[0],2) + Math.pow(this.left_collision_spot[1] - otherObject.pos[1],2)) < otherObject.radius){
+        console.log("hit!");
+        return true;
+      }
+       if (Math.sqrt(Math.pow(this.right_collision_spot[0] - otherObject.pos[0],2) + Math.pow(this.right_collision_spot[1] - otherObject.pos[1],2)) < otherObject.radius){
         console.log("hit!");
         return true;
       }
@@ -72,20 +76,20 @@
         // console.log(this.collision_spots[0][1] + " is the SHIP second collision spot position");        
       // }
      
-      if (Math.sqrt(Math.pow(this.collision_spots[1][0] - otherObject.pos[0],2) + Math.pow(this.collision_spots[1][1] - otherObject.pos[1],2)) < otherObject.radius){
-        console.log("hit!");
-        return true;
-      }
+      // if (Math.sqrt(Math.pow(this.left_corner[1][0] - otherObject.pos[0],2) + Math.pow(this.collision_spots[1][1] - otherObject.pos[1],2)) < otherObject.radius){
+      //   console.log("hit!");
+      //   return true;
+      // }
 
-      if (Math.sqrt(Math.pow(this.collision_spots[2][0] - otherObject.pos[0],2) + Math.pow(this.collision_spots[2][1] - otherObject.pos[1],2)) < otherObject.radius){
-        console.log("hit!");
-        return true;
-      }
+      // if (Math.sqrt(Math.pow(this.collision_spots[2][0] - otherObject.pos[0],2) + Math.pow(this.collision_spots[2][1] - otherObject.pos[1],2)) < otherObject.radius){
+      //   console.log("hit!");
+      //   return true;
+      // }
 
-      if (Math.sqrt(Math.pow(this.collision_spots[3][0] - otherObject.pos[0],2) + Math.pow(this.collision_spots[3][1] - otherObject.pos[1],2)) < otherObject.radius){
-        console.log("hit!");
-        return true;
-      }
+      // if (Math.sqrt(Math.pow(this.collision_spots[3][0] - otherObject.pos[0],2) + Math.pow(this.collision_spots[3][1] - otherObject.pos[1],2)) < otherObject.radius){
+      //   console.log("hit!");
+      //   return true;
+      // }
 	}
 
 })(this);

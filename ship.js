@@ -14,10 +14,11 @@
     this.GUN_SPEED = 0.12;
     this.MAX_SPEED = .1;
     this.top_corner = [0, 0];
-    this.left_corner = [-10, 20];
-    this.right_corner = [10, 20];
+    // length of lines
+    this.left_corner = -20;
+    this.right_corner = 20;
     this.rotation_increment = 0;
-    this.angle = 0;
+    this.angle = Math.PI/2;
     this.rotation_vel = rotation_vel;
     MovingShips.MovingShip.call(this, pos, vel, rotation_vel, COLOR);
   };
@@ -75,7 +76,10 @@
   }
 
   Ship.prototype.update_corners = function(angle){
-    this.left_collision_spot = [this.pos[0] + this.left_corner[0]*Math.cos(angle), this.pos[1] + this.left_corner[1]*Math.sin(angle)];
+    // 0.400848 is the angle in radians between the vertical line from the top to bottom of the ship and the line from the top top bottom left
+    this.left_collision_spot = [this.pos[0] + this.left_corner*Math.cos(angle+0.400848)*-1, this.pos[1] + this.left_corner*Math.sin(angle+0.400848)*-1];
+    this.right_collision_spot = [this.pos[0] + this.right_corner*Math.cos(angle-0.400848), this.pos[1] + this.right_corner*Math.sin(angle-0.400848)];
+
   }
 
   var Bullet = Ship.Bullet = function(pos, vel){
@@ -89,7 +93,7 @@
   inherits(Bullet, root.MovingObjects.MovingObject);
 
   Ship.prototype.direction = function() {
-    return ([Math.sin(this.angle), Math.cos(this.angle)*-1]);
+    return ([Math.cos(this.angle), Math.sin(this.angle)*-1]);
     // var speed = Math.sqrt(Math.pow(this.vel[0],2) + Math.pow(this.vel[1],2));
     // if (speed == 0){
     //   return [0,-1];
@@ -101,7 +105,7 @@
 
   Ship.prototype.fireBullet = function(){
     if (this.vel != 0){
-      return new Bullet(this.pos.slice(), [this.direction()[0]*this.GUN_SPEED, this.direction()[1]*this.GUN_SPEED]);
+      return new Bullet(this.pos.slice(), [-1*this.direction()[0]*this.GUN_SPEED, this.direction()[1]*this.GUN_SPEED]);
     }
   }
 
