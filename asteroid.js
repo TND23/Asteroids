@@ -10,7 +10,7 @@
   var Asteroid = Asteroids.Asteroid = function(pos, vel) {
     var COLOR = "#AAAAAA";
     var minSize = .5;
-    var RADIUS = 100 * ((minSize * Math.random()) + minSize);
+    var RADIUS = 40 * ((minSize * Math.random()) + minSize);
     this.radius = RADIUS;
     MovingObjects.MovingObject.call(this, pos, vel, RADIUS, COLOR);
   };
@@ -19,7 +19,7 @@
 
   var randomAsteroid = Asteroids.randomAsteroid = function(dimX, dimY){   
 
-    var STARTING_VELOCITY = 0.01;
+    var STARTING_VELOCITY = 0.02;
     var starting_pos = [Math.random()*dimX, Math.random()*dimY];
     var in_random_direction = Math.random() > 0.5 ? -1 : 1;
    
@@ -28,12 +28,14 @@
     return new Asteroid(starting_pos, starting_vel);
   }
 
-  var explode = Asteroids.explode = function(asteroid){
+  var explode = Asteroids.explode = function(asteroid, bullet){
     if (asteroid.radius > 14){
       var asteroids = [];
-      var asteroid_child_a = new Asteroid([asteroid.pos[0]+10,asteroid.pos[1]-10], [asteroid.vel[0]*1.3,asteroid.vel[1]*1.3]);
+      var bullet_x_dir = bullet.vel[0];
+      var bullet_y_dir = bullet.vel[1];
+      var asteroid_child_a = new Asteroid([asteroid.pos[0]+10,asteroid.pos[1]-10], [asteroid.vel[0]+(.06*bullet_x_dir),asteroid.vel[1]+(.06*bullet_y_dir)]);
       asteroid_child_a.radius = asteroid.radius / 2;
-      var asteroid_child_b = new Asteroid(asteroid.pos, [asteroid.vel[0]*-1.6,asteroid.vel[1]*-1.6]);
+      var asteroid_child_b = new Asteroid([asteroid.pos[0],asteroid.pos[1]], [asteroid.vel[0]+(.06*bullet_x_dir),asteroid.vel[1]+(.06*bullet_y_dir)]);
       asteroid_child_b.radius = asteroid.radius / 2;
       asteroids.push(asteroid_child_a);
       asteroids.push(asteroid_child_b);

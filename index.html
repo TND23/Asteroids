@@ -8,20 +8,20 @@
   <script src="./game.js"></script>
 </head>
 <body>
-   <div style="position: absolute; z-index: -2; background: url('http://www.californiaindianeducation.org/science_lab/pics/space_photos/Space_Deep.jpg'); height: 601px; width:801px;">
-  </div>
+  <!--  <div style="position: absolute; z-index: -2; background: url('http://www.connectpositronic.com/blog/wp-content/uploads/2013/06/space.jpg'); height: 601px; width:801px;">
+  </div> -->
   <script>
   var canvas = document.createElement("canvas");
   canvas.style.border = "black 1px solid";
-  canvas.style.backgroundImage = "./background.png";
+ // canvas.style.backgroundImage = "./background.png";
   canvas.setAttribute("width", 800);
   canvas.setAttribute("height", 600);
-  
+
   var body = document.getElementsByTagName("body")[0];
   body.appendChild(canvas);
 
   var ctx = canvas.getContext("2d");
-  
+
   var game = new AsteroidsGame.Game(ctx);
   game.start();
   
