@@ -17,11 +17,9 @@
     this.won = false;
     var shipA = this.ship;
     var that = this;
-    var x_direction = Math.sin(shipA.angle);
-    var y_direction = Math.cos(shipA.angle);
    
-    key('w', function() { shipA.power([shipA.angle*.1,y_direction*-.1]) });
-    key('s', function() { shipA.power([shipA.angle*-.1,y_direction*.1]) });
+    key('w', function() { shipA.power([Math.sin(shipA.angle)*.1,Math.cos(shipA.angle)*-.1]) });
+    key('s', function() { shipA.slowDown() });
     key('a', function() { shipA.turn((Math.PI/6) * -.1) });
     key('d', function() { shipA.turn((Math.PI/6) *.1)});
     // each rotation is 6 degrees
@@ -141,9 +139,9 @@
 
     Game.prototype.checkAsteroids = function(){
       var that = this;
-      if (this.asteroids.length === 0){
-        game.won = true;
-      }
+      // if (this.asteroids.length === 0){
+      //   game.won = true;
+      // }
     }
 
     Game.prototype.step = function(){
@@ -156,10 +154,10 @@
         this.remove_out_of_bounds();
         this.checkAsteroids();
       }
-      if(game.won === true){
-        game.stop();
-        this.restart();
-      }
+      // if(game.won === true){
+      //   game.stop();
+      //   this.restart();
+      // }
     }
 
     Game.prototype.start = function(){

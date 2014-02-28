@@ -31,6 +31,22 @@
     }
   }
 
+  Ship.prototype.slowDown = function(){
+    if (Math.abs(this.vel[0]) < .02){
+      this.vel[0] = 0;  
+    }
+    else{
+      this.vel[0] *= .75;
+    }
+    if (Math.abs(this.vel[1]) < .02){
+      this.vel[1] = 0;  
+    }
+    else{
+      this.vel[1] *= .75;
+    }
+    
+  }
+
   // Ship.prototype.rotate = function(rotation_vel){
   //   this.angle += rotation_vel;
   //   this.angle %= (2*Math.PI)
@@ -64,7 +80,7 @@
   inherits(Bullet, root.MovingObjects.MovingObject);
 
   Ship.prototype.direction = function() {
-    return ([Math.sin(this.angle), Math.cos(this.angle)*-2]);
+    return ([Math.sin(this.angle), Math.cos(this.angle)*-1]);
     // var speed = Math.sqrt(Math.pow(this.vel[0],2) + Math.pow(this.vel[1],2));
     // if (speed == 0){
     //   return [0,-1];
