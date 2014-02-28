@@ -11,7 +11,7 @@
     else{
       this.level = level;
     }
-    this.ship = new Ship.ship([this.dimX/2,this.dimY/2], [0,0], 0);
+    this.ship = new Ship.ship([(this.dimX/2),this.dimY/2], [0,0], 0);
     this.asteroids = this.populateAsteroids(this.level, this.dimX, this.dimY);
     this.bullets = [];
     this.won = false;

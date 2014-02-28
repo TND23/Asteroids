@@ -13,6 +13,9 @@
     this.ENGINE = 0.04;
     this.GUN_SPEED = 0.12;
     this.MAX_SPEED = .1;
+    this.top_corner = [0, 0];
+    this.left_corner = [-10, 20];
+    this.right_corner = [10, 20];
     this.rotation_increment = 0;
     this.angle = 0;
     this.rotation_vel = rotation_vel;
@@ -57,6 +60,7 @@
     this.rotation_increment+=rotation_increment;
     this.angle += rotation_increment;
     this.angle %= (2*Math.PI)
+    var angle = this.angle;
     if(this.rotation_vel >= 2*Math.PI){
       this.rotation_vel = 0;
     }
@@ -66,7 +70,12 @@
     else{
       this.rotation_vel += rotation_increment;     
     }
+    this.update_corners(angle);
    // this.angle += rotation_increment;
+  }
+
+  Ship.prototype.update_corners = function(angle){
+    this.left_collision_spot = [this.pos[0] + this.left_corner[0]*Math.cos(angle), this.pos[1] + this.left_corner[1]*Math.sin(angle)];
   }
 
   var Bullet = Ship.Bullet = function(pos, vel){
