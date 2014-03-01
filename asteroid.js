@@ -30,7 +30,7 @@
   }
 
   var explode = Asteroids.explode = function(asteroid, bullet){
-    if (asteroid.radius > 14){
+    if (asteroid.radius > 23){
       var asteroids = [];
       var bullet_x_dir = bullet.vel[0];
       var bullet_y_dir = bullet.vel[1];

@@ -5,18 +5,10 @@
     this.ctx = ctx;
     this.dimX = 800;
     this.dimY = 600;
-    if(lives === undefined){
-      this.lives = 3;
-    }
-    if(points === undefined){
-      this.points = 0;
-    }
-    if (level === undefined){
-      this.level = 4; 
-    }
-    else{
-      this.level = level;
-    }
+    lives === undefined ? this.lives = 3 : this.lives = lives;
+    points === undefined ? this.points = 0 : this.points = points;
+    level === undefined ? this.level = 4 : this.level = level;
+ 
     this.ship = new Ship.ship([(this.dimX/2),this.dimY/2], [0,0], 0);
     this.asteroids = this.populateAsteroids(this.level, this.dimX, this.dimY);
     this.bullets = [];
@@ -43,6 +35,9 @@
       return list_of_asteroids;
     }
 
+    Game.prototype.addPoints = function(points){
+      this.points += points;
+    }
 
     Game.prototype.checkAsteroids = function(){
       var that = this;
@@ -104,7 +99,7 @@
       for(var i = 0; i < this.bullets.length; i++) {
         for(var j = 0; j < this.asteroids.length; j++) {
           if (this.bullets[i].isCollidedWith(this.asteroids[j]) && this.asteroids[j]){
-            
+            this.addPoints(this.asteroids[j].points);
             if (this.asteroids[j].radius > 14){
               var new_asteroids = Asteroids.explode(that.asteroids[j], this.bullets[i]);
               this.asteroids.remove(j);
@@ -178,8 +173,6 @@
       this.ship.rotate(this.ship.rotation_increment);
     }
 
-
-
     Game.prototype.setLevel = function(){
       alert('proceeding to the next level...')
       var level = this.level;
@@ -195,7 +188,7 @@
       if(level >= 24){
         level += 8;
       }
-      game = new AsteroidsGame.Game(ctx, level);
+      game = new AsteroidsGame.Game(ctx, level, this.lives, this.points);
       game.start();
     }
 
@@ -228,9 +221,6 @@
       window.clearInterval(this.timer_id);
     }
 
-      Game.prototype.sumPoints = function(){
-      
-    }
 
 
     
