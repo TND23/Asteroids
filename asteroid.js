@@ -12,7 +12,8 @@
     var minSize = .5;
     var RADIUS = 40 * ((minSize * Math.random()) + minSize);
     this.radius = RADIUS;
-    MovingObjects.MovingObject.call(this, pos, vel, RADIUS, COLOR);
+    var points = Math.round(1000/this.radius);
+    MovingObjects.MovingObject.call(this, pos, vel, RADIUS, COLOR, points);
   };
 
   inherits(Asteroid, root.MovingObjects.MovingObject);

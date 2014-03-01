@@ -1,11 +1,14 @@
 (function(root){
   var MovingObjects = root.MovingObjects = (root.MovingObject || {});
 
- var MovingObject = MovingObjects.MovingObject = function(pos, vel, radius, color){
+ var MovingObject = MovingObjects.MovingObject = function(pos, vel, radius, color, points){
   this.pos = pos;
   this.vel = vel;
   this.radius = radius;
   this.color = color;
+  if(points){
+    this.points = points;
+  }
 }
 
 MovingObject.prototype.move = function(delta){

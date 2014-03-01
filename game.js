@@ -1,11 +1,16 @@
 (function(root){
   var AsteroidsGame = root.AsteroidsGame = (root.AsteroidsGame || {});
 
-  var Game = AsteroidsGame.Game = function(ctx, level){
+  var Game = AsteroidsGame.Game = function(ctx, level, lives, points){
     this.ctx = ctx;
     this.dimX = 800;
     this.dimY = 600;
-    this.lives = 3;
+    if(lives === undefined){
+      this.lives = 3;
+    }
+    if(points === undefined){
+      this.points = 0;
+    }
     if (level === undefined){
       this.level = 4; 
     }
@@ -18,7 +23,6 @@
     this.won = false;
     var shipA = this.ship;
     var that = this;
-    this.lives = 3;
    
     key('w', function() { shipA.power([Math.cos(shipA.angle)*-.02,Math.sin(shipA.angle)*-.02]) });
     key('s', function() { shipA.slowDown() });
@@ -87,6 +91,14 @@
       }
     }
 
+    Game.prototype.fireBullet = function() {
+      if(this.bullets.length < 9)
+      {
+        this.bullets.push(this.ship.fireBullet());  
+      }
+      
+    }
+
     Game.prototype.hitAsteroids = function() {
       var that = this;
       for(var i = 0; i < this.bullets.length; i++) {
@@ -105,14 +117,6 @@
           }
         }
       }
-    }
-
-    Game.prototype.fireBullet = function() {
-      if(this.bullets.length < 9)
-      {
-        this.bullets.push(this.ship.fireBullet());  
-      }
-      
     }
 
     Game.prototype.move = function(){
@@ -175,6 +179,7 @@
     }
 
 
+
     Game.prototype.setLevel = function(){
       alert('proceeding to the next level...')
       var level = this.level;
@@ -222,6 +227,11 @@
     Game.prototype.stop = function(){
       window.clearInterval(this.timer_id);
     }
+
+      Game.prototype.sumPoints = function(){
+      
+    }
+
 
     
 })(this);
