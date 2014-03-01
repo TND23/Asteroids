@@ -30,6 +30,21 @@ MovingObject.prototype.draw = function(ctx){
   ctx.fill();
 }
 
+MovingObject.prototype.relocate = function(){
+  if(this.pos[0] < 0){
+      this.pos[0] += 800;
+    }
+    if(this.pos[0] > 800){
+      this.pos[0] -= 800;
+    }
+     if(this.pos[1] >600){
+      this.pos[1] -= 600;
+    }
+    if(this.pos[1] < 0){
+      this.pos[1] += 600;
+    }
+}
+
 MovingObject.prototype.isCollidedWith = function(otherObject){
 
   var distance = Math.sqrt(

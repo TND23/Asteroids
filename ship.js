@@ -90,7 +90,7 @@
     // 0.400848 is the angle in radians between the vertical line from the top to bottom of the ship and the line from the top top bottom left
     this.left_collision_spot = [this.pos[0] + this.left_corner*Math.cos(angle+init_degree)*-1, this.pos[1] + this.left_corner*Math.sin(angle+init_degree)*-1];
     this.right_collision_spot = [this.pos[0] + this.right_corner*Math.cos(angle-init_degree), this.pos[1] + this.right_corner*Math.sin(angle-init_degree)];
-    this.top_collision_spot = []
+    this.top_collision_spot = [];
   }
 
   var Bullet = Ship.Bullet = function(pos, vel){

@@ -128,19 +128,10 @@
 
     Game.prototype.remove_out_of_bounds = function(){
       for(var i = 0; i < this.bullets.length; i++){
-        if(this.bullets[i].pos[0] >= this.dimX + 20
-          || this.bullets[i].pos[1] >= this.dimY + 20
-            || this.bullets[i].pos[0] <= 0 -20){
-          this.bullets.remove(i);
-        }
+        this.bullets[i].relocate();
       }
       for(var i = 0; i < this.asteroids.length; i++){
-        if(this.asteroids[i].pos[0] >= this.dimX + 20
-          || this.asteroids[i].pos[1] >= this.dimY + 20
-            || this.asteroids[i].pos[0] <= 0 -20
-              || this.asteroids[i].pos[1] <= 0 -20){
-          this.asteroids.remove(i);
-        }
+        this.asteroids[i].relocate();
       }
     }
 
@@ -182,16 +173,17 @@
         this.move();
         this.drawAll();
         this.rotateShip();
+        this.ship.relocate();
         this.ship.turn(0);
         this.checkCollisions();
         this.hitAsteroids();
         this.remove_out_of_bounds();
-       // this.checkAsteroids();
+     
       }
-      // if(game.won === true){
-      //   game.stop();
-      //   this.restart();
-      // }
+      if(game.won === true){
+        game.stop();
+        this.restart();
+      }
     }
 
     Game.prototype.stop = function(){

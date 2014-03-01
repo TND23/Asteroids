@@ -35,6 +35,21 @@
 
 	}
 
+  MovingShip.prototype.relocate = function(){
+    if(this.pos[0] < 0){
+      this.pos[0] += 800;
+    }
+    if(this.pos[0] > 800){
+      this.pos[0] -= 800;
+    }
+     if(this.pos[1] >600){
+      this.pos[1] -= 600;
+    }
+    if(this.pos[1] < 0){
+      this.pos[1] += 600;
+    }
+  }
+
 	MovingShip.prototype.isCollidedWith = function(otherObject){
 
       if (Math.sqrt(Math.pow(this.left_collision_spot[0] - otherObject.pos[0],2) + Math.pow(this.left_collision_spot[1] - otherObject.pos[1],2)) < otherObject.radius){
@@ -50,4 +65,3 @@
 	}
 
 })(this);
-
