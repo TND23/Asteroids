@@ -18,6 +18,7 @@
     this.won = false;
     var shipA = this.ship;
     var that = this;
+    this.lives = 3;
    
     key('w', function() { shipA.power([Math.cos(shipA.angle)*-.02,Math.sin(shipA.angle)*-.02]) });
     key('s', function() { shipA.slowDown() });
@@ -52,6 +53,13 @@
           this.lives -=1;
           if (this.lives < 0){
             this.displayGameOver();
+          }
+          else{
+            this.ship.pos[0] = (this.dimX/2);
+            this.ship.pos[1] = (this.dimY/2);
+            this.ship.angle = Math.PI/2; 
+            this.ship.rotation_increment = 0;
+            this.ship.rotation_vel = 0;
           }
         }
       }
@@ -100,7 +108,11 @@
     }
 
     Game.prototype.fireBullet = function() {
-      this.bullets.push(this.ship.fireBullet());
+      if(this.bullets.length < 9)
+      {
+        this.bullets.push(this.ship.fireBullet());  
+      }
+      
     }
 
     Game.prototype.move = function(){
@@ -134,7 +146,15 @@
       return this.push.apply(this, rest);
     };
 
+    Game.prototype.remove_bullet = function(){
 
+      for(var i = 0; i < this.bullets.length; i++){
+        this.bullets[i].lifespan -= 50;
+        if(this.bullets[i].lifespan <= 0){
+          this.bullets.remove(i);
+        }
+      }
+    }
     // thanks to http://stackoverflow.com/a/9815010
 
     Game.prototype.remove_out_of_bounds = function(){
@@ -183,6 +203,7 @@
       if(game.won === false){
         this.checkAsteroids();
         this.move();
+        this.remove_bullet();
         this.drawAll();
         this.rotateShip();
         this.ship.relocate();

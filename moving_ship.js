@@ -67,4 +67,5 @@
 })(this);
 
 // TODO: add cool flames for acceleration
-// TODO: reset position on losing a life
+// TODO: reset position on losing a life COMPLETE
+// TODO: add invincibility when losing a life

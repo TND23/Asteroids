@@ -95,6 +95,7 @@
   var Bullet = Ship.Bullet = function(pos, vel){
     this.pos = pos;
     this.vel = vel;
+    this.lifespan = 1000;
     var COLOR = "#AA3388";
     var RADIUS = 5;
     MovingObjects.MovingObject.call(this, pos, vel, RADIUS, COLOR);

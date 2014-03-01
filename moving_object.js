@@ -54,5 +54,5 @@ MovingObject.prototype.isCollidedWith = function(otherObject){
 }
 })(this);
 
-// TODO: make bullets have a lifespan
+// TODO: make bullets have a lifespan DONE
 // TODO: create new kinds of moving_object
