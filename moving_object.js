@@ -53,3 +53,6 @@ MovingObject.prototype.isCollidedWith = function(otherObject){
   return (otherObject.radius + this.radius > distance);
 }
 })(this);
+
+// TODO: make bullets have a lifespan
+// TODO: create new kinds of moving_object

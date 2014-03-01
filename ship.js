@@ -52,7 +52,6 @@
   }
 
   Ship.prototype.slowingDown = function(rotation_increment){
-    console.log(rotation_increment);
     return (Math.abs(this.rotation_increment + rotation_increment) < Math.abs(this.rotation_increment))
   }
 

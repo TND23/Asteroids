@@ -65,3 +65,6 @@
 	}
 
 })(this);
+
+// TODO: add cool flames for acceleration
+// TODO: reset position on losing a life

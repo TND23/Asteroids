@@ -47,3 +47,6 @@
   }
 
 })(this);
+
+// TODO: make into polygons (?)
+// TODO: Add points to asteroids

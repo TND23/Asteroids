@@ -5,6 +5,7 @@
     this.ctx = ctx;
     this.dimX = 800;
     this.dimY = 600;
+    this.lives = 3;
     if (level === undefined){
       this.level = 4; 
     }
@@ -48,10 +49,20 @@
     Game.prototype.checkCollisions = function(){
       for(var i = 0; i < this.asteroids.length; i++){
         if (this.ship.isCollidedWith(this.asteroids[i])) {
-          alert("You lose.");
-          this.stop();
+          this.lives -=1;
+          if (this.lives < 0){
+            this.displayGameOver();
+          }
         }
       }
+    }
+
+    Game.prototype.displayGameOver = function(){
+
+      this.stop();
+      ctx.rect(0,0,this.dimX, this.dimY);
+      ctx.fillstyle = "red";
+      ctx.fill();
     }
 
     Game.prototype.drawAll = function(){
@@ -170,6 +181,7 @@
 
     Game.prototype.step = function(){
       if(game.won === false){
+        this.checkAsteroids();
         this.move();
         this.drawAll();
         this.rotateShip();
@@ -192,3 +204,6 @@
 
     
 })(this);
+
+// TODO: add sationary_object 
+// increment lives based on points
