@@ -9,6 +9,7 @@
     lives === undefined ? this.lives = 3 : this.lives = lives;
     points === undefined ? this.points = 0 : this.points = points;
     level === undefined ? this.level = 4 : this.level = level;
+    this.nextLifeAt = points > 0 ? points * 2 : 1000;
  
     this.ship = new Ship.ship([(this.dimX/2),this.dimY/2], [0,0], 0);
     this.asteroids = this.populateAsteroids(this.level, this.dimX, this.dimY);
@@ -36,6 +37,8 @@
 
   Game.prototype.addPoints = function(points){
     this.points += points;
+    this.internalPoints += points;
+    this.updateLives();
   }
 
   Game.prototype.checkAsteroids = function(){
@@ -75,6 +78,8 @@
     this.ctx.save();
     this.ship.draw(this.ctx);
     this.ctx.restore();
+    this.drawLives();
+
     for(var i = 0; i < this.asteroids.length; i++){
       this.asteroids[i].draw(this.ctx);
     }
@@ -86,6 +91,10 @@
 
   Game.prototype.drawPoints = function(){
     ctx.fillText("Points: " + game.points,10,10);
+  }
+
+  Game.prototype.drawLives = function(){
+    ctx.fillText("Lives: " + game.lives, 750, 10);
   }
 
   Game.prototype.fireBullet = function() {
@@ -219,6 +228,13 @@
 
   Game.prototype.stop = function(){
     window.clearInterval(this.timer_id);
+  }
+
+  Game.prototype.updateLives = function(){
+    if(this.points >= this.nextLifeAt){
+      this.lives += 1;
+      this.nextLifeAt *= 2;
+    }
   }
 })(this);
 
