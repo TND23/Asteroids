@@ -28,11 +28,9 @@
   		ctx.fill();	
 	}
 
-
 	MovingShip.prototype.move = function(delta){
   	 this.pos[0] += this.vel[0] * delta;
  		 this.pos[1] += this.vel[1] * delta;
-
 	}
 
   MovingShip.prototype.relocate = function(){
@@ -55,15 +53,13 @@
       if (Math.sqrt(Math.pow(this.left_collision_spot[0] - otherObject.pos[0],2) + Math.pow(this.left_collision_spot[1] - otherObject.pos[1],2)) < otherObject.radius){
         return true;
       }
-       if (Math.sqrt(Math.pow(this.right_collision_spot[0] - otherObject.pos[0],2) + Math.pow(this.right_collision_spot[1] - otherObject.pos[1],2)) < otherObject.radius){
+      if (Math.sqrt(Math.pow(this.right_collision_spot[0] - otherObject.pos[0],2) + Math.pow(this.right_collision_spot[1] - otherObject.pos[1],2)) < otherObject.radius){
         return true;
       }
-
       if (Math.sqrt(Math.pow(this.pos[0] - otherObject.pos[0],2) + Math.pow(this.pos[1] - otherObject.pos[1],2)) < otherObject.radius){
         return true;
       }
 	}
-
 })(this);
 
 // TODO: add cool flames for acceleration

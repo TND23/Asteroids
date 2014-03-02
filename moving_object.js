@@ -12,7 +12,6 @@
 }
 
 MovingObject.prototype.move = function(delta){
-
   this.pos[0] += this.vel[0] * delta;
   this.pos[1] += this.vel[1] * delta;
 }
@@ -20,7 +19,6 @@ MovingObject.prototype.move = function(delta){
 MovingObject.prototype.draw = function(ctx){
   ctx.fillStyle = this.color;
   ctx.beginPath();
-
   ctx.arc(
     this.pos[0],
     this.pos[1],
@@ -48,13 +46,12 @@ MovingObject.prototype.relocate = function(){
     }
 }
 
-MovingObject.prototype.isCollidedWith = function(otherObject){
-
-  var distance = Math.sqrt(
-    Math.pow(this.pos[0] - otherObject.pos[0],2) + Math.pow(this.pos[1] - otherObject.pos[1], 2)
-  );
-  return (otherObject.radius + this.radius > distance);
-}
+  MovingObject.prototype.isCollidedWith = function(otherObject){
+    var distance = Math.sqrt(
+      Math.pow(this.pos[0] - otherObject.pos[0],2) + Math.pow(this.pos[1] - otherObject.pos[1], 2)
+    );
+    return (otherObject.radius + this.radius > distance);
+  } 
 })(this);
 
 // TODO: make bullets have a lifespan DONE

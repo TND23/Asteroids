@@ -36,19 +36,8 @@
   }
 
   Ship.prototype.slowDown = function(){
-    if (Math.abs(this.vel[0]) < .02){
-      this.vel[0] = 0;  
-    }
-    else{
-      this.vel[0] *= .75;
-    }
-    if (Math.abs(this.vel[1]) < .02){
-      this.vel[1] = 0;  
-    }
-    else{
-      this.vel[1] *= .75;
-    }
-    
+    Math.abs(this.vel[0]) < .02 ? this.vel[0] = 0 : this.vel[0] *= .75;
+    Math.abs(this.vel[1]) < .02 ? this.vel[1] = 0 : this.vel[1] *= .75;
   }
 
   Ship.prototype.slowingDown = function(rotation_increment){
@@ -61,7 +50,7 @@
     }
 
     this.angle += rotation_increment;
-    this.angle %= (2*Math.PI)
+    this.angle %= (2*Math.PI);
     var angle = this.angle;
     if(this.rotation_vel >= 2*Math.PI){
       this.rotation_vel = 0;
@@ -112,5 +101,6 @@
       return new Bullet(this.pos.slice(), [-1*this.direction()[0]*this.GUN_SPEED, this.direction()[1]*this.GUN_SPEED]);
     }
   }
-
 })(this);
+
+//TODO: DRY out the moving objects subclasses

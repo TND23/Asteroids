@@ -23,9 +23,8 @@
     var STARTING_VELOCITY = 0.02;
     var starting_pos = [Math.random()*dimX, Math.random()*dimY];
     var in_random_direction = Math.random() > 0.5 ? -1 : 1;
-   
     var starting_vel = [Math.random()*STARTING_VELOCITY*in_random_direction,
-      Math.random()*STARTING_VELOCITY*in_random_direction];
+                        Math.random()*STARTING_VELOCITY*in_random_direction];
     return new Asteroid(starting_pos, starting_vel);
   }
 
