@@ -90,11 +90,11 @@
   }
 
   Game.prototype.drawPoints = function(){
-    ctx.fillText("Points: " + game.points,10,10);
+    ctx.fillText("Points: " + game.points,10,20);
   }
 
   Game.prototype.drawLives = function(){
-    ctx.fillText("Lives: " + game.lives, 750, 10);
+    ctx.fillText("Lives: " + game.lives, 725, 20);
   }
 
   Game.prototype.fireBullet = function() {

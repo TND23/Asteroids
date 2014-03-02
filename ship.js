@@ -85,7 +85,7 @@
     this.pos = pos;
     this.vel = vel;
     this.lifespan = 1000;
-    var COLOR = "#AA3388";
+    var COLOR = "#00EE33";
     var RADIUS = 5;
     MovingObjects.MovingObject.call(this, pos, vel, RADIUS, COLOR);
   }

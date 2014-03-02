@@ -8,23 +8,24 @@
   <script src="./torus.js"></script>
   <script src="./game.js"></script>
 </head>
-<body>
-  <!--  <div style="position: absolute; z-index: -2; background: url('http://www.connectpositronic.com/blog/wp-content/uploads/2013/06/space.jpg'); height: 601px; width:801px;">
-  </div> -->
+<body bgcolor="#000000">
+   <div style="position: absolute; z-index: -2; background: url('http://www.connectpositronic.com/blog/wp-content/uploads/2013/06/space.jpg'); height: 601px; width:801px;">
+  </div>
 
   <script>
   var canvas = document.createElement("canvas");
-  canvas.style.border = "black 1px solid";
+  canvas.style.border = "white 1px solid";
  // canvas.style.backgroundImage = "./background.png";
   canvas.setAttribute("width", 800);
   canvas.setAttribute("height", 600);
 
 
   var body = document.getElementsByTagName("body")[0];
+  //body.setAttribute("backgroundColor: black;")
   body.appendChild(canvas);
 
   var ctx = canvas.getContext("2d");
-  ctx.font = "10px Arial";
+  ctx.font = "20px Arial";
 
   var game = new AsteroidsGame.Game(ctx);
   var points = game.points;
@@ -32,7 +33,7 @@
   game.start();
   
   </script>
- <h3 id="instructions" style="float: right;">
+ <h3 id="instructions" style="float: right; color: white;">
     <p> Controls: </p>
     <p> Accelerate left: "a" </p>
     <p> Accelerate left: "s" </p>
@@ -41,13 +42,16 @@
     <p> Shoot: spacebar </p>
     <br> </br>
     <p> Tips: </p>
-    <p> Smaller asteroids are harder to hit, so they give you more points. </p>
+    <p> Be patient with yourself. Like the original Asteroids game, the controls
+        may be somewhat counter intuitive.
+    </p>
+    <p> Smaller asteroids are harder to hit, but are worth more points. </p>
     <p> Additional lives are rewarded at: </p>
     <p> 1000 points </p>
     <p> 2000 points </p>
     <p> 4000 points </p>
     <p> 8000 points </p>
-    <p> and on and on... </p>
+    <p> and so on... </p>
   </h3>
 
 
